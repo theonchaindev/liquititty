@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Token {
+  id            String   @id @default(cuid())
+  address       String   @unique
+  name          String
+  symbol        String
+  description   String?
+  imageUrl      String?
+  twitterUrl    String?
+  telegramUrl   String?
+  websiteUrl    String?
+  creatorWallet String
+  lpPercentage  Int
+  lpAddress     String?
+  pumpfunUrl    String?
+  totalRaised   Float    @default(0)
+  lpValue       Float    @default(0)
+  launchedAt    DateTime @default(now())
+
+  liquidityEvents LiquidityEvent[]
+
+  @@index([launchedAt])
+  @@index([lpValue])
+}
+
+model LiquidityEvent {
+  id        String   @id @default(cuid())
+  token     Token    @relation(fields: [tokenId], references: [id])
+  tokenId   String
+  amount    Float
+  txHash    String
+  createdAt DateTime @default(now())
+
+  @@index([tokenId])
+}
