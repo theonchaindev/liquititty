@@ -43,9 +43,7 @@ export default function TokenCard({ name, symbol, imageUrl, lpPercentage, lpValu
           {imageUrl && <img src={imageUrl} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span style={{ fontWeight: 700, fontSize: 16, color: "#FFFFFF", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{name}</span>
-          </div>
+          <span style={{ fontWeight: 700, fontSize: 16, color: "#FFFFFF", display: "block", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{name}</span>
           <span style={{ color: "#8888AA", fontSize: 13 }}>${symbol}</span>
         </div>
         <div style={{
@@ -58,18 +56,18 @@ export default function TokenCard({ name, symbol, imageUrl, lpPercentage, lpValu
           color: "#FF0090",
           flexShrink: 0
         }}>
-          {lpPercentage}% LP
+          {lpPercentage}% buyback
         </div>
       </div>
 
       {/* Stats */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
         <div style={{ background: "#111118", borderRadius: 10, padding: "10px 14px" }}>
-          <div style={{ color: "#8888AA", fontSize: 11, marginBottom: 4 }}>LP Value</div>
+          <div style={{ color: "#8888AA", fontSize: 11, marginBottom: 4 }}>Buyback Vol</div>
           <div style={{ color: "#FF0090", fontWeight: 700, fontSize: 15 }}>{formatNumber(lpValue)}</div>
         </div>
         <div style={{ background: "#111118", borderRadius: 10, padding: "10px 14px" }}>
-          <div style={{ color: "#8888AA", fontSize: 11, marginBottom: 4 }}>Total Raised</div>
+          <div style={{ color: "#8888AA", fontSize: 11, marginBottom: 4 }}>Fees Claimed</div>
           <div style={{ color: "#FFFFFF", fontWeight: 700, fontSize: 15 }}>{formatNumber(totalRaised)}</div>
         </div>
       </div>

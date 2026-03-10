@@ -2,40 +2,34 @@ import Link from "next/link"
 
 const STEPS = [
   {
-    icon: "🪙",
-    title: "Token Creation",
-    desc: "You create your token through LiquiTitty's launchpad. We handle the pump.fun smart contract deployment, giving you a standard pump.fun token with all the familiar bonding curve mechanics.",
-    detail: "Your token starts with the standard pump.fun bonding curve. When it reaches the graduation threshold (~$69k market cap), it migrates to a Raydium liquidity pool."
+    icon: "⏱️",
+    title: "Creator fees auto-claimed every 5 minutes",
+    desc: "Once your token is live on pump.fun, our system continuously monitors your creator fee wallet. Every 5 minutes — automatically — fees are claimed on your behalf.",
+    detail: "No need to log in, no button to click. The claim happens on-chain via a smart contract that runs on a scheduled keeper, 24/7.",
   },
   {
-    icon: "⚙️",
-    title: "LP Allocation Setup",
-    desc: "Before launch, you choose your LP allocation percentage — anywhere from 10% to 100% of your dev fees. This is locked in at launch and cannot be changed.",
-    detail: "A minimum of 10% ensures every token launched on LiquiTitty has meaningful liquidity backing. Tokens with higher LP allocations are marked with a 'Trust' badge."
+    icon: "🔄",
+    title: "Up to 100% of fees used to buy back your token",
+    desc: "You choose your buyback rate at launch — anywhere from 50% to 100% of claimed creator fees. That percentage is immediately used to buy your token directly on the bonding curve.",
+    detail: "Buying on the bonding curve pushes the price up and reduces the supply available to sellers, creating consistent upward price pressure with every claim cycle.",
   },
   {
-    icon: "💸",
-    title: "Dev Fees Intercepted",
-    desc: "As people trade your token, pump.fun generates dev fees. Our smart contract intercepts these fees before they reach your wallet.",
-    detail: "The fee interception happens on-chain through a custom program that sits between the pump.fun fee mechanism and your wallet."
+    icon: "🎓",
+    title: "After migration: 50% buyback + 50% LP on PumpSwap",
+    desc: "When your token graduates from pump.fun and migrates to PumpSwap, the mechanism automatically adapts. Fees split: 50% continues buying the token, 50% is deposited as liquidity.",
+    detail: "The LP is added to your token's PumpSwap pool and the LP tokens are burned — permanently locking liquidity. This means the pool depth only ever grows, never shrinks.",
   },
   {
-    icon: "💧",
-    title: "Auto-LP on Raydium",
-    desc: "Your set percentage is automatically swapped and added as liquidity to your token's Raydium pool. The rest reaches your wallet as normal.",
-    detail: "The LP tokens are burned, permanently locking the liquidity. This creates compounding, ever-growing liquidity that builds trust with traders."
-  },
-  {
-    icon: "📈",
-    title: "Compounding Liquidity",
-    desc: "More trading = more dev fees = more LP. Your token's liquidity grows automatically with every trade, creating a virtuous cycle.",
-    detail: "Traders can see the growing LP value on-chain, building confidence that the token has real backing and the dev isn't going to rug."
+    icon: "🤖",
+    title: "Fully automated — no manual intervention needed",
+    desc: "From launch to graduation and beyond, everything runs automatically. You focus on building community; the protocol handles the buying pressure and liquidity.",
+    detail: "The buyback rate you set at launch is locked in forever. This is a feature — it proves to your community that the buyback cannot be turned off or reduced.",
   },
 ]
 
 export const metadata = {
   title: "How It Works | LiquiTitty",
-  description: "Learn how LiquiTitty automatically routes dev fees into Raydium liquidity pools.",
+  description: "Learn how LiquiTitty automatically claims creator fees and uses them to buy back your token every 5 minutes.",
 }
 
 export default function HowItWorksPage() {
@@ -47,17 +41,43 @@ export default function HowItWorksPage() {
           <h1 style={{ fontSize: 48, fontWeight: 900, marginBottom: 16 }}>
             How <span className="gradient-text">LiquiTitty</span> Works
           </h1>
-          <p style={{ color: "#8888AA", fontSize: 18, lineHeight: 1.6 }}>
-            Automatic liquidity pools for every token, built on trust and transparency.
+          <p style={{ color: "#8888AA", fontSize: 18, lineHeight: 1.6, maxWidth: 520, margin: "0 auto" }}>
+            Automated buybacks every 5 minutes. Permanent liquidity after migration. No manual work required.
           </p>
+        </div>
+
+        {/* Key numbers banner */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 16,
+          marginBottom: 72
+        }}>
+          {[
+            { value: "5 min", label: "Claim interval", sub: "around the clock" },
+            { value: "50–100%", label: "Buyback rate", sub: "you choose at launch" },
+            { value: "50 / 50", label: "Post-migration split", sub: "buyback + PumpSwap LP" },
+          ].map((s, i) => (
+            <div key={i} style={{
+              background: "rgba(255,0,144,0.08)",
+              border: "1px solid rgba(255,0,144,0.2)",
+              borderRadius: 16,
+              padding: "24px 16px",
+              textAlign: "center"
+            }}>
+              <div style={{ color: "#FF0090", fontWeight: 900, fontSize: 28, marginBottom: 6 }}>{s.value}</div>
+              <div style={{ color: "#FFFFFF", fontWeight: 600, fontSize: 14, marginBottom: 4 }}>{s.label}</div>
+              <div style={{ color: "#8888AA", fontSize: 12 }}>{s.sub}</div>
+            </div>
+          ))}
         </div>
 
         {/* Steps */}
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           {STEPS.map((s, i) => (
             <div key={i} style={{ display: "flex", gap: 32, position: "relative" }}>
-              {/* Line */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+              {/* Timeline */}
+              <div style={{ display: "flex", flexDirection: "column" as const, alignItems: "center", flexShrink: 0 }}>
                 <div style={{
                   width: 56,
                   height: 56,
@@ -81,7 +101,7 @@ export default function HowItWorksPage() {
 
               {/* Content */}
               <div style={{ paddingBottom: i < STEPS.length - 1 ? 48 : 0, flex: 1 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12, flexWrap: "wrap" as const }}>
                   <span style={{
                     background: "rgba(255,0,144,0.15)",
                     color: "#FF0090",
@@ -90,7 +110,7 @@ export default function HowItWorksPage() {
                     fontSize: 12,
                     fontWeight: 700
                   }}>Step {i + 1}</span>
-                  <h3 style={{ fontWeight: 700, fontSize: 22, margin: 0 }}>{s.title}</h3>
+                  <h3 style={{ fontWeight: 700, fontSize: 20, margin: 0 }}>{s.title}</h3>
                 </div>
                 <p style={{ color: "#AAAACC", fontSize: 16, lineHeight: 1.7, marginBottom: 12 }}>{s.desc}</p>
                 <div style={{
@@ -106,16 +126,92 @@ export default function HowItWorksPage() {
           ))}
         </div>
 
+        {/* Flow diagram */}
+        <div style={{ marginTop: 80 }}>
+          <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 32, textAlign: "center" }}>Fee Flow Diagram</h2>
+
+          {/* Bonding curve phase */}
+          <div style={{ marginBottom: 24 }}>
+            <div style={{ color: "#8888AA", fontSize: 12, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.06em", marginBottom: 12, textAlign: "center" }}>
+              On bonding curve
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 0, flexWrap: "wrap" as const, justifyContent: "center" }}>
+              {[
+                { label: "Creator Fees", bg: "#16161F", border: "rgba(255,255,255,0.1)", color: "#FFFFFF" },
+                { label: "→", bg: "transparent", border: "transparent", color: "#8888AA" },
+                { label: "Claim\n(every 5 min)", bg: "rgba(255,0,144,0.1)", border: "rgba(255,0,144,0.3)", color: "#FF0090" },
+                { label: "→", bg: "transparent", border: "transparent", color: "#8888AA" },
+                { label: "X% Buyback\non curve", bg: "rgba(255,0,144,0.15)", border: "rgba(255,0,144,0.4)", color: "#FF0090" },
+                { label: "+", bg: "transparent", border: "transparent", color: "#8888AA" },
+                { label: "(100–X)%\nto you", bg: "#16161F", border: "rgba(255,255,255,0.1)", color: "#FFFFFF" },
+              ].map((item, i) => (
+                item.label === "→" || item.label === "+" ? (
+                  <div key={i} style={{ color: item.color, fontSize: 20, padding: "0 8px" }}>{item.label}</div>
+                ) : (
+                  <div key={i} style={{
+                    background: item.bg,
+                    border: `1px solid ${item.border}`,
+                    borderRadius: 10,
+                    padding: "12px 16px",
+                    textAlign: "center",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: item.color,
+                    whiteSpace: "pre-line" as const,
+                    lineHeight: 1.4
+                  }}>{item.label}</div>
+                )
+              ))}
+            </div>
+          </div>
+
+          {/* Post-migration phase */}
+          <div>
+            <div style={{ color: "#FF69B4", fontSize: 12, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.06em", marginBottom: 12, textAlign: "center" }}>
+              After migration to PumpSwap
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 0, flexWrap: "wrap" as const, justifyContent: "center" }}>
+              {[
+                { label: "Creator Fees", bg: "#16161F", border: "rgba(255,255,255,0.1)", color: "#FFFFFF" },
+                { label: "→", bg: "transparent", border: "transparent", color: "#8888AA" },
+                { label: "Claim\n(every 5 min)", bg: "rgba(255,0,144,0.1)", border: "rgba(255,0,144,0.3)", color: "#FF0090" },
+                { label: "→", bg: "transparent", border: "transparent", color: "#8888AA" },
+                { label: "50% Buyback\nmarket buy", bg: "rgba(255,0,144,0.15)", border: "rgba(255,0,144,0.4)", color: "#FF0090" },
+                { label: "+", bg: "transparent", border: "transparent", color: "#8888AA" },
+                { label: "50% Add LP\nPumpSwap 🔒", bg: "rgba(255,0,144,0.08)", border: "rgba(255,0,144,0.25)", color: "#FF69B4" },
+              ].map((item, i) => (
+                item.label === "→" || item.label === "+" ? (
+                  <div key={i} style={{ color: item.color, fontSize: 20, padding: "0 8px" }}>{item.label}</div>
+                ) : (
+                  <div key={i} style={{
+                    background: item.bg,
+                    border: `1px solid ${item.border}`,
+                    borderRadius: 10,
+                    padding: "12px 16px",
+                    textAlign: "center",
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: item.color,
+                    whiteSpace: "pre-line" as const,
+                    lineHeight: 1.4
+                  }}>{item.label}</div>
+                )
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* FAQ */}
         <div style={{ marginTop: 80 }}>
           <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 40, textAlign: "center" }}>FAQ</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {[
-              { q: "Can I change my LP allocation after launch?", a: "No. The LP allocation is locked in at launch to ensure trust. This is a feature, not a limitation — it proves to traders that you cannot rug the liquidity." },
-              { q: "What happens to the LP tokens?", a: "LP tokens are burned upon creation, permanently locking the liquidity in the pool. This means the liquidity can never be removed." },
-              { q: "Is there a fee to launch on LiquiTitty?", a: "LiquiTitty charges a small platform fee of 0.5 SOL per launch, plus standard Solana network fees." },
-              { q: "What DEX does the LP go to?", a: "All liquidity pools are created on Raydium, the largest and most liquid DEX on Solana." },
-              { q: "What's the minimum LP allocation?", a: "The minimum LP allocation is 10%. This ensures every token on LiquiTitty has at least some liquidity backing." },
+              { q: "Can I change my buyback rate after launch?", a: "No. The buyback rate is locked at launch. This is intentional — it proves to your community that you cannot turn off or reduce the buybacks. It's a trust signal, not a limitation." },
+              { q: "What's the minimum buyback rate?", a: "50%. You must commit at least half of your creator fees to buying back your token. You can go up to 100% if you want the maximum buyback pressure." },
+              { q: "What happens if there are no creator fees?", a: "If no trades happen, no fees are generated and no claims are made. The system only runs when there's activity — no wasted transactions." },
+              { q: "Who controls the LP tokens after migration?", a: "Nobody. LP tokens are burned immediately upon creation, permanently locking the liquidity in the PumpSwap pool. The pool only ever grows." },
+              { q: "Is there a fee to use LiquiTitty?", a: "LiquiTitty charges a small protocol fee of 0.5 SOL per launch, plus standard Solana network fees for each claim transaction." },
+              { q: "What is PumpSwap?", a: "PumpSwap is pump.fun's native DEX. When a token graduates (reaches the ~$69k bonding curve target), it migrates to PumpSwap automatically. LiquiTitty continues the buyback + LP mechanism on PumpSwap after migration." },
             ].map((faq, i) => (
               <div key={i} className="card" style={{ padding: 24 }}>
                 <h4 style={{ fontWeight: 700, fontSize: 16, marginBottom: 10, color: "#FFFFFF" }}>{faq.q}</h4>
@@ -128,7 +224,7 @@ export default function HowItWorksPage() {
         {/* CTA */}
         <div style={{ textAlign: "center", marginTop: 80 }}>
           <Link href="/launch" className="btn-primary" style={{ padding: "16px 48px", fontSize: 18, borderRadius: 14 }}>
-            🚀 Ready to Launch?
+            🚀 Launch with Auto-Buyback
           </Link>
         </div>
       </div>

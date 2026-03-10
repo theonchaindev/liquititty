@@ -1,10 +1,10 @@
 export default function StatsBar() {
   const stats = [
     { label: "Tokens Launched", value: "1,247", suffix: "" },
-    { label: "Total LP Value", value: "$4.2M", suffix: "" },
-    { label: "Dev Fees Auto-LP'd", value: "$890K", suffix: "" },
-    { label: "Avg LP Allocation", value: "34", suffix: "%" },
-    { label: "Active Pools", value: "892", suffix: "" },
+    { label: "Total Buyback Volume", value: "$6.8M", suffix: "" },
+    { label: "Fees Auto-Claimed", value: "$8.5M", suffix: "" },
+    { label: "Avg Buyback Rate", value: "80", suffix: "%" },
+    { label: "Post-Migration LPs", value: "312", suffix: "" },
   ]
   return (
     <div style={{ background: "#111118", borderBottom: "1px solid rgba(255,255,255,0.05)", overflowX: "auto" }}>

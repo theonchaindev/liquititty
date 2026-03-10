@@ -14,7 +14,7 @@ interface FormData {
   initialBuy: string
 }
 
-const STEPS = ["Token Info", "Socials", "LP Setup", "Review & Launch"]
+const STEPS = ["Token Info", "Socials", "Buyback Setup", "Review & Launch"]
 
 export default function LaunchForm() {
   const [step, setStep] = useState(0)
@@ -28,7 +28,7 @@ export default function LaunchForm() {
     twitterUrl: "",
     telegramUrl: "",
     websiteUrl: "",
-    lpPercentage: 25,
+    lpPercentage: 80,
     initialBuy: "0.5",
   })
 
@@ -38,7 +38,7 @@ export default function LaunchForm() {
   const handleLaunch = async () => {
     setLoading(true)
     try {
-      await new Promise(r => setTimeout(r, 2000)) // simulate
+      await new Promise(r => setTimeout(r, 2000))
       const res = await fetch("/api/tokens", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -61,7 +61,10 @@ export default function LaunchForm() {
       <div style={{ textAlign: "center", padding: "60px 20px" }}>
         <div style={{ fontSize: 64, marginBottom: 16 }}>🚀</div>
         <h2 className="gradient-text" style={{ fontSize: 32, fontWeight: 800, marginBottom: 12 }}>Token Launched!</h2>
-        <p style={{ color: "#8888AA", marginBottom: 24 }}>Your token is live on pump.fun and the LP is active on Raydium.</p>
+        <p style={{ color: "#8888AA", marginBottom: 8 }}>Your token is live on pump.fun.</p>
+        <p style={{ color: "#8888AA", marginBottom: 24 }}>
+          Creator fees will be claimed every 5 minutes. <strong style={{ color: "#FF0090" }}>{form.lpPercentage}%</strong> will auto-buyback on the bonding curve — fully automated.
+        </p>
         <a href="/tokens" className="btn-primary" style={{ padding: "12px 32px", fontSize: 16 }}>View All Tokens</a>
       </div>
     )
@@ -132,15 +135,20 @@ export default function LaunchForm() {
         </div>
       )}
 
-      {/* Step 2: LP Setup */}
+      {/* Step 2: Buyback Setup */}
       {step === 2 && (
         <div style={{ display: "flex", flexDirection: "column" as const, gap: 24 }}>
-          <h2 style={{ fontWeight: 700, fontSize: 22, color: "#FFFFFF" }}>LP Setup</h2>
+          <div>
+            <h2 style={{ fontWeight: 700, fontSize: 22, color: "#FFFFFF", marginBottom: 6 }}>Buyback Setup</h2>
+            <p style={{ color: "#8888AA", fontSize: 14, margin: 0 }}>
+              Set how much of your creator fees automatically buyback your token every 5 minutes.
+            </p>
+          </div>
           <LPAllocationSlider value={form.lpPercentage} onChange={v => update("lpPercentage", v)} />
           <div>
             <label style={{ color: "#AAAACC", fontSize: 13, display: "block", marginBottom: 8 }}>Initial Dev Buy (SOL)</label>
             <input className="input-pink" style={inputStyle} type="number" min="0" step="0.1" placeholder="0.5" value={form.initialBuy} onChange={e => update("initialBuy", e.target.value)} />
-            <p style={{ color: "#8888AA", fontSize: 12, marginTop: 6 }}>Optional initial buy to give your token momentum</p>
+            <p style={{ color: "#8888AA", fontSize: 12, marginTop: 6 }}>Optional initial buy to give your token momentum at launch</p>
           </div>
           <div style={{
             background: "rgba(255,0,144,0.06)",
@@ -148,8 +156,8 @@ export default function LaunchForm() {
             borderRadius: 12,
             padding: 16
           }}>
-            <p style={{ color: "#FF69B4", fontSize: 13, margin: 0 }}>
-              💧 <strong>{form.lpPercentage}%</strong> of all dev fees will automatically route to your Raydium liquidity pool. This cannot be changed after launch.
+            <p style={{ color: "#FF69B4", fontSize: 13, margin: 0, lineHeight: 1.6 }}>
+              ⚡ Fees claimed every <strong>5 minutes</strong>. <strong>{form.lpPercentage}%</strong> auto-buys your token on the bonding curve. After migration to PumpSwap, splits 50% buyback + 50% LP automatically.
             </p>
           </div>
         </div>
@@ -162,15 +170,17 @@ export default function LaunchForm() {
           <div style={{ background: "#111118", borderRadius: 14, padding: 20, display: "flex", flexDirection: "column" as const, gap: 14 }}>
             {[
               { label: "Name", value: form.name || "—" },
-              { label: "Symbol", value: `$${form.symbol}` || "—" },
+              { label: "Symbol", value: form.symbol ? `$${form.symbol}` : "—" },
               { label: "Description", value: form.description || "—" },
               { label: "Twitter", value: form.twitterUrl || "—" },
               { label: "Telegram", value: form.telegramUrl || "—" },
-              { label: "LP Allocation", value: `${form.lpPercentage}% auto-LP on Raydium` },
+              { label: "Buyback Rate", value: `${form.lpPercentage}% of creator fees` },
+              { label: "Claim Interval", value: "Every 5 minutes" },
+              { label: "Post-Migration", value: "50% buyback + 50% PumpSwap LP" },
               { label: "Initial Buy", value: `${form.initialBuy} SOL` },
             ].map((r, i) => (
               <div key={i} style={{ display: "flex", gap: 12 }}>
-                <span style={{ color: "#8888AA", fontSize: 13, width: 120, flexShrink: 0 }}>{r.label}</span>
+                <span style={{ color: "#8888AA", fontSize: 13, width: 130, flexShrink: 0 }}>{r.label}</span>
                 <span style={{ color: "#FFFFFF", fontSize: 13, wordBreak: "break-all" as const }}>{r.value}</span>
               </div>
             ))}
@@ -181,8 +191,8 @@ export default function LaunchForm() {
             borderRadius: 12,
             padding: 14
           }}>
-            <p style={{ color: "#FF69B4", fontSize: 13, margin: 0 }}>
-              By launching, you agree that <strong>{form.lpPercentage}%</strong> of dev fees will be permanently routed to a Raydium LP. This builds trust with your community.
+            <p style={{ color: "#FF69B4", fontSize: 13, margin: 0, lineHeight: 1.6 }}>
+              Fully automated — no manual intervention needed. Creator fees are claimed every 5 minutes and <strong>{form.lpPercentage}%</strong> is used to buy back your token on the bonding curve. This cannot be changed after launch.
             </p>
           </div>
           <button
