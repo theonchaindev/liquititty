@@ -13,21 +13,20 @@ async function getTokens() {
   }
 }
 
-// Mock tokens for display when DB is empty
 const MOCK_TOKENS = [
-  { id: "1", name: "Degen Pepe", symbol: "DPEPE", lpPercentage: 30, lpValue: 45000, totalRaised: 180000, launchedAt: new Date(Date.now() - 2 * 3600000).toISOString(), address: "mock1" },
-  { id: "2", name: "Liquidity King", symbol: "LKING", lpPercentage: 50, lpValue: 120000, totalRaised: 340000, launchedAt: new Date(Date.now() - 5 * 3600000).toISOString(), address: "mock2" },
-  { id: "3", name: "Pink Wojak", symbol: "PWOJAK", lpPercentage: 25, lpValue: 18000, totalRaised: 90000, launchedAt: new Date(Date.now() - 12 * 3600000).toISOString(), address: "mock3" },
-  { id: "4", name: "Auto LP Cat", symbol: "ALPCAT", lpPercentage: 40, lpValue: 67000, totalRaised: 210000, launchedAt: new Date(Date.now() - 24 * 3600000).toISOString(), address: "mock4" },
-  { id: "5", name: "Raydium Rat", symbol: "RRAT", lpPercentage: 15, lpValue: 8000, totalRaised: 55000, launchedAt: new Date(Date.now() - 36 * 3600000).toISOString(), address: "mock5" },
-  { id: "6", name: "Dev Fee Slayer", symbol: "DFS", lpPercentage: 60, lpValue: 290000, totalRaised: 580000, launchedAt: new Date(Date.now() - 48 * 3600000).toISOString(), address: "mock6" },
-  { id: "7", name: "Moon Ape", symbol: "MAPE", lpPercentage: 20, lpValue: 32000, totalRaised: 140000, launchedAt: new Date(Date.now() - 60 * 3600000).toISOString(), address: "mock7" },
-  { id: "8", name: "Pump Protocol", symbol: "PUMP", lpPercentage: 35, lpValue: 78000, totalRaised: 260000, launchedAt: new Date(Date.now() - 72 * 3600000).toISOString(), address: "mock8" },
+  { id: "1", name: "Degen Pepe", symbol: "DPEPE", lpPercentage: 80, lpValue: 45000, totalRaised: 56000, launchedAt: new Date(Date.now() - 2 * 3600000).toISOString(), address: "mock1" },
+  { id: "2", name: "Liquidity King", symbol: "LKING", lpPercentage: 100, lpValue: 120000, totalRaised: 150000, launchedAt: new Date(Date.now() - 5 * 3600000).toISOString(), address: "mock2" },
+  { id: "3", name: "Pink Wojak", symbol: "PWOJAK", lpPercentage: 60, lpValue: 18000, totalRaised: 22000, launchedAt: new Date(Date.now() - 12 * 3600000).toISOString(), address: "mock3" },
+  { id: "4", name: "Auto Buy Cat", symbol: "ABCAT", lpPercentage: 75, lpValue: 67000, totalRaised: 84000, launchedAt: new Date(Date.now() - 24 * 3600000).toISOString(), address: "mock4" },
+  { id: "5", name: "PumpSwap Rat", symbol: "PRAT", lpPercentage: 50, lpValue: 8000, totalRaised: 10000, launchedAt: new Date(Date.now() - 36 * 3600000).toISOString(), address: "mock5" },
+  { id: "6", name: "Fee Machine", symbol: "FEEM", lpPercentage: 90, lpValue: 290000, totalRaised: 360000, launchedAt: new Date(Date.now() - 48 * 3600000).toISOString(), address: "mock6" },
+  { id: "7", name: "Moon Ape", symbol: "MAPE", lpPercentage: 70, lpValue: 32000, totalRaised: 40000, launchedAt: new Date(Date.now() - 60 * 3600000).toISOString(), address: "mock7" },
+  { id: "8", name: "Pump Protocol", symbol: "PUMP", lpPercentage: 85, lpValue: 78000, totalRaised: 95000, launchedAt: new Date(Date.now() - 72 * 3600000).toISOString(), address: "mock8" },
 ]
 
 export const metadata = {
   title: "Launched Tokens | LiquiTitty",
-  description: "Browse all tokens launched with automatic Raydium liquidity pools.",
+  description: "Browse all tokens launched with automatic buybacks and PumpSwap liquidity.",
 }
 
 export default async function TokensPage() {
@@ -35,30 +34,33 @@ export default async function TokensPage() {
   const tokens = dbTokens.length > 0 ? dbTokens : MOCK_TOKENS
 
   return (
-    <div style={{ padding: "60px 24px", minHeight: "100vh" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+    <div style={{ padding: "72px 24px", minHeight: "100vh" }}>
+      <div style={{ maxWidth: 1240, margin: "0 auto" }}>
         {/* Header */}
-        <div style={{ marginBottom: 48 }}>
-          <h1 style={{ fontSize: 40, fontWeight: 900, marginBottom: 12 }}>Launched Tokens</h1>
-          <p style={{ color: "#8888AA", fontSize: 16 }}>
-            {tokens.length} tokens launched with automatic Raydium LP
+        <div style={{ marginBottom: 52 }}>
+          <h1 style={{ fontSize: "clamp(36px, 6vw, 60px)", fontWeight: 900, letterSpacing: "-0.03em", marginBottom: 12 }}>
+            Launched Tokens
+          </h1>
+          <p style={{ color: "#7777AA", fontSize: 17 }}>
+            {tokens.length} tokens with automatic buybacks on pump.fun × PumpSwap
           </p>
         </div>
 
         {/* Filter bar */}
-        <div style={{ display: "flex", gap: 12, marginBottom: 36, flexWrap: "wrap" }}>
-          {["Newest", "LP Value", "Total Raised", "Highest LP %"].map((f, i) => (
+        <div style={{ display: "flex", gap: 10, marginBottom: 40, flexWrap: "wrap" }}>
+          {["Newest", "Buyback Vol", "Fees Claimed", "Highest Buyback %"].map((f, i) => (
             <button
               key={f}
               style={{
-                padding: "8px 20px",
+                padding: "9px 22px",
                 borderRadius: 100,
-                border: `1px solid ${i === 0 ? "#FF0090" : "rgba(255,255,255,0.1)"}`,
-                background: i === 0 ? "rgba(255,0,144,0.15)" : "transparent",
-                color: i === 0 ? "#FF0090" : "#8888AA",
+                border: `1px solid ${i === 0 ? "rgba(255,0,153,0.55)" : "rgba(255,255,255,0.08)"}`,
+                background: i === 0 ? "rgba(255,0,153,0.12)" : "rgba(255,255,255,0.03)",
+                color: i === 0 ? "#FF44CC" : "#7777AA",
                 fontSize: 13,
                 cursor: "pointer",
-                fontWeight: i === 0 ? 600 : 400
+                fontWeight: i === 0 ? 700 : 400,
+                transition: "all 0.2s",
               }}
             >
               {f}
@@ -67,7 +69,7 @@ export default async function TokensPage() {
         </div>
 
         {/* Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(310px, 1fr))", gap: 20 }}>
           {tokens.map((t: any) => (
             <TokenCard
               key={t.id || t.address}
@@ -83,10 +85,10 @@ export default async function TokensPage() {
           ))}
         </div>
 
-        {/* Launch CTA */}
-        <div style={{ textAlign: "center", marginTop: 80 }}>
-          <p style={{ color: "#8888AA", marginBottom: 20 }}>Want to launch with auto-LP?</p>
-          <Link href="/launch" className="btn-primary" style={{ padding: "14px 36px", fontSize: 16, borderRadius: 12 }}>
+        {/* CTA */}
+        <div style={{ textAlign: "center", marginTop: 96 }}>
+          <p style={{ color: "#7777AA", marginBottom: 20, fontSize: 16 }}>Want auto-buybacks on your token?</p>
+          <Link href="/launch" className="btn-primary" style={{ padding: "15px 40px", fontSize: 17, borderRadius: 13 }}>
             🚀 Launch Your Token
           </Link>
         </div>

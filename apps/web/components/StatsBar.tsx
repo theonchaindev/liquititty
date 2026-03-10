@@ -1,19 +1,31 @@
 export default function StatsBar() {
   const stats = [
-    { label: "Tokens Launched", value: "1,247", suffix: "" },
-    { label: "Total Buyback Volume", value: "$6.8M", suffix: "" },
-    { label: "Fees Auto-Claimed", value: "$8.5M", suffix: "" },
-    { label: "Avg Buyback Rate", value: "80", suffix: "%" },
-    { label: "Post-Migration LPs", value: "312", suffix: "" },
+    { label: "Tokens Launched", value: "1,247" },
+    { label: "Total Buyback Vol", value: "$6.8M" },
+    { label: "Fees Auto-Claimed", value: "$8.5M" },
+    { label: "Avg Buyback Rate", value: "80%" },
+    { label: "PumpSwap LPs", value: "312" },
   ]
   return (
-    <div style={{ background: "#111118", borderBottom: "1px solid rgba(255,255,255,0.05)", overflowX: "auto" }}>
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center gap-12 whitespace-nowrap">
+    <div style={{
+      background: "rgba(9, 9, 26, 0.95)",
+      borderBottom: "1px solid rgba(255, 0, 153, 0.12)",
+      overflowX: "auto",
+    }}>
+      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center gap-10 whitespace-nowrap">
         {stats.map((s, i) => (
-          <div key={i} className="flex items-center gap-3">
-            <span style={{ color: "#8888AA", fontSize: 12 }}>{s.label}</span>
-            <span style={{ color: "#FF0090", fontSize: 14, fontWeight: 700 }}>
-              {s.value}{s.suffix}
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ color: "#5555AA", fontSize: 11, fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" }}>{s.label}</span>
+            <span style={{
+              background: "linear-gradient(90deg, #FF0099, #CC00FF)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              fontSize: 13,
+              fontWeight: 800,
+              letterSpacing: "-0.01em",
+            }}>
+              {s.value}
             </span>
           </div>
         ))}

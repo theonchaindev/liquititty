@@ -8,11 +8,11 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "LiquiTitty — Launch with Instant Liquidity",
-  description: "Launch tokens on pump.fun with automatic Raydium liquidity pools. Your dev fees, automatically compounding.",
+  title: "LiquiTitty — Auto-Buyback Every 5 Minutes",
+  description: "Launch tokens on pump.fun with automatic buybacks and PumpSwap liquidity. Creator fees claimed every 5 minutes. Fully automated.",
   openGraph: {
-    title: "LiquiTitty",
-    description: "Launch tokens with auto-LP on Raydium",
+    title: "LiquiTitty — Auto-Buyback Every 5 Minutes",
+    description: "Launch tokens on pump.fun with automatic buybacks and PumpSwap liquidity.",
   },
 }
 
