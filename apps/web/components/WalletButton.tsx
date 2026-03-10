@@ -11,20 +11,19 @@ export default function WalletButton() {
       setAddress("")
       return
     }
-    const mockAddr = "8xKt...3mPq"
     setConnected(true)
-    setAddress(mockAddr)
+    setAddress("8xKt...3mPq")
   }
 
   return (
     <button
       onClick={handleClick}
       className={connected ? "btn-outline" : "btn-primary"}
-      style={{ padding: "9px 20px", fontSize: 14, borderRadius: 10 }}
+      style={{ padding: "8px 18px", fontSize: 13 }}
     >
       {connected ? (
-        <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
-          <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#00FF88", display: "inline-block", boxShadow: "0 0 8px #00FF88" }} />
+        <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#00CC66", display: "inline-block" }} />
           {address}
         </span>
       ) : (

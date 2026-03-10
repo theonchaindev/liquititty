@@ -1,32 +1,22 @@
 export default function StatsBar() {
   const stats = [
     { label: "Tokens Launched", value: "1,247" },
-    { label: "Total Buyback Vol", value: "$6.8M" },
-    { label: "Fees Auto-Claimed", value: "$8.5M" },
+    { label: "Buyback Vol", value: "$6.8M" },
+    { label: "Fees Claimed", value: "$8.5M" },
     { label: "Avg Buyback Rate", value: "80%" },
     { label: "PumpSwap LPs", value: "312" },
   ]
   return (
     <div style={{
-      background: "rgba(9, 9, 26, 0.95)",
-      borderBottom: "1px solid rgba(255, 0, 153, 0.12)",
+      background: "#0C0C0C",
+      borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
       overflowX: "auto",
     }}>
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center gap-10 whitespace-nowrap">
+      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "0 24px", height: 40, display: "flex", alignItems: "center", gap: 40, whiteSpace: "nowrap" }}>
         {stats.map((s, i) => (
-          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ color: "#5555AA", fontSize: 11, fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" }}>{s.label}</span>
-            <span style={{
-              background: "linear-gradient(90deg, #FF0099, #CC00FF)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              fontSize: 13,
-              fontWeight: 800,
-              letterSpacing: "-0.01em",
-            }}>
-              {s.value}
-            </span>
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span style={{ color: "#444", fontSize: 11, fontWeight: 400, letterSpacing: "0.04em", textTransform: "uppercase" }}>{s.label}</span>
+            <span style={{ color: "#FFFFFF", fontSize: 12, fontWeight: 600 }}>{s.value}</span>
           </div>
         ))}
       </div>

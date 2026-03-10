@@ -11,118 +11,111 @@ const MOCK_TOKENS = [
 ]
 
 const STEPS = [
-  { icon: "🚀", num: "01", title: "Launch on pump.fun", desc: "Create your token and set your buyback rate — anywhere from 50% to 100% of creator fees." },
-  { icon: "⏱️", num: "02", title: "Fees claimed every 5 mins", desc: "Our keeper claims your creator fees automatically, every 5 minutes, around the clock." },
-  { icon: "🔄", num: "03", title: "Auto-buyback on the curve", desc: "Your set % is used to buy back your token on the bonding curve — constant buy pressure." },
-  { icon: "💧", num: "04", title: "Post-migration: 50/50 split", desc: "After graduating to PumpSwap: 50% buys back, 50% is added as permanent locked LP." },
+  { num: "01", title: "Launch on pump.fun", desc: "Create your token. Set your buyback rate — 50% to 100% of creator fees." },
+  { num: "02", title: "Fees claimed automatically", desc: "Our keeper claims your creator fees every 5 minutes, around the clock." },
+  { num: "03", title: "Auto-buyback on the curve", desc: "Your set percentage buys back your token directly on the bonding curve." },
+  { num: "04", title: "Post-migration: 50/50 split", desc: "After graduating to PumpSwap: 50% buys back, 50% becomes permanent LP." },
 ]
 
 export default function Home() {
   return (
     <div>
       {/* ─── Hero ──────────────────────────────── */}
-      <section className="grid-bg" style={{ minHeight: "90vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "100px 24px", position: "relative", overflow: "hidden" }}>
-        {/* Large radial glow */}
-        <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translate(-50%,-50%)", width: 900, height: 900, borderRadius: "50%", background: "radial-gradient(circle, rgba(255,0,153,0.14) 0%, rgba(180,0,255,0.07) 40%, transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", bottom: -200, left: "50%", transform: "translateX(-50%)", width: 700, height: 700, borderRadius: "50%", background: "radial-gradient(circle, rgba(180,0,255,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
-
-        <div style={{ maxWidth: 860, textAlign: "center", position: "relative", zIndex: 1 }}>
-          {/* Badge */}
-          <div className="badge-neon" style={{ marginBottom: 36, display: "inline-flex" }}>
-            <span style={{ fontSize: 15 }}>⚡</span>
-            <span style={{ color: "#FF44CC", fontSize: 13, fontWeight: 600, letterSpacing: "0.02em" }}>pump.fun × PumpSwap — Fully Automated</span>
-          </div>
-
-          {/* Headline */}
-          <h1 style={{ fontSize: "clamp(52px, 8.5vw, 96px)", fontWeight: 900, lineHeight: 1.05, marginBottom: 28, letterSpacing: "-0.03em" }}>
-            <span style={{ color: "#FFFFFF" }}>Auto-buyback</span><br />
-            <span className="gradient-text-bright">every 5 minutes.</span>
-          </h1>
-
-          {/* Sub */}
-          <p style={{ color: "#9999BB", fontSize: "clamp(17px, 2.5vw, 22px)", maxWidth: 620, margin: "0 auto 48px", lineHeight: 1.65 }}>
-            Launch on pump.fun. Set your buyback rate. Walk away. Creator fees are claimed and auto-bought every 5 minutes — on the bonding curve and on PumpSwap after migration.
+      <section style={{ minHeight: "88vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "120px 24px 80px" }}>
+        <div style={{ maxWidth: 720, textAlign: "center" }}>
+          <p style={{ color: "#FF0099", fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 32 }}>
+            pump.fun × PumpSwap — Fully Automated
           </p>
 
-          {/* CTAs */}
-          <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 72 }}>
-            <Link href="/launch" className="btn-primary animate-pulse-glow" style={{ padding: "16px 44px", fontSize: 18, borderRadius: 14, letterSpacing: "0.01em" }}>
-              🚀 Launch a Token
+          <h1 style={{ fontSize: "clamp(48px, 8vw, 88px)", fontWeight: 800, lineHeight: 1.05, letterSpacing: "-0.03em", marginBottom: 28 }}>
+            Auto-buyback<br />
+            <span className="gradient-text">every 5 minutes.</span>
+          </h1>
+
+          <p style={{ color: "#888", fontSize: "clamp(16px, 2vw, 19px)", lineHeight: 1.7, marginBottom: 48, maxWidth: 540, margin: "0 auto 48px" }}>
+            Launch on pump.fun. Set your buyback rate. Creator fees are claimed and reinvested automatically — on the bonding curve and on PumpSwap after migration.
+          </p>
+
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 64 }}>
+            <Link href="/launch" className="btn-primary" style={{ padding: "14px 36px", fontSize: 15 }}>
+              Launch a Token
             </Link>
-            <Link href="/tokens" className="btn-outline" style={{ padding: "16px 44px", fontSize: 18, borderRadius: 14 }}>
+            <Link href="/tokens" className="btn-outline" style={{ padding: "14px 36px", fontSize: 15 }}>
               View Tokens
             </Link>
           </div>
 
-          {/* Stat pills */}
-          <div style={{ display: "inline-flex", gap: 2, background: "rgba(255,0,153,0.06)", border: "1px solid rgba(255,0,153,0.2)", borderRadius: 20, padding: "6px", flexWrap: "wrap", justifyContent: "center" }}>
+          <div style={{ display: "flex", gap: 48, justifyContent: "center", flexWrap: "wrap" }}>
             {[
               { value: "5 min", label: "auto-claim" },
               { value: "50–100%", label: "buyback rate" },
-              { value: "50/50", label: "post-migration" },
               { value: "0 clicks", label: "manual work" },
             ].map((s, i) => (
-              <div key={i} style={{ padding: "14px 28px", textAlign: "center", borderRadius: 14, background: i === 3 ? "transparent" : "rgba(255,0,153,0.08)" }}>
-                <div style={{ color: "#FF44CC", fontWeight: 900, fontSize: "clamp(20px, 3vw, 28px)", letterSpacing: "-0.01em", lineHeight: 1.1 }}>{s.value}</div>
-                <div style={{ color: "#7777AA", fontSize: 12, marginTop: 4, fontWeight: 500 }}>{s.label}</div>
+              <div key={i} style={{ textAlign: "center" }}>
+                <div style={{ color: "#FFFFFF", fontWeight: 700, fontSize: 22, letterSpacing: "-0.02em" }}>{s.value}</div>
+                <div style={{ color: "#555", fontSize: 12, marginTop: 4, letterSpacing: "0.04em", textTransform: "uppercase" }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* ─── Divider ───────────────────────────── */}
+      <hr className="divider" style={{ maxWidth: 1160, margin: "0 auto" }} />
+
       {/* ─── How it works ──────────────────────── */}
-      <section className="section-dark" style={{ padding: "96px 24px" }}>
+      <section style={{ padding: "96px 24px" }}>
         <div style={{ maxWidth: 1160, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 64 }}>
-            <h2 style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, letterSpacing: "-0.02em", marginBottom: 14 }}>How it works</h2>
-            <p style={{ color: "#7777AA", fontSize: 18 }}>Fully automated. No manual intervention needed.</p>
+          <div style={{ marginBottom: 56 }}>
+            <p style={{ color: "#FF0099", fontSize: 12, fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>How it works</p>
+            <h2 style={{ fontSize: "clamp(32px, 4.5vw, 48px)", fontWeight: 800, letterSpacing: "-0.025em", lineHeight: 1.1 }}>
+              Set it once.<br />It runs forever.
+            </h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 1, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, overflow: "hidden" }}>
             {STEPS.map((s, i) => (
-              <div key={i} className="card" style={{ padding: "32px 28px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
-                  <div style={{ width: 52, height: 52, borderRadius: 14, background: "linear-gradient(135deg, rgba(255,0,153,0.2), rgba(180,0,255,0.15))", border: "1px solid rgba(255,0,153,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26 }}>{s.icon}</div>
-                  <span style={{ color: "rgba(255,0,153,0.2)", fontSize: 40, fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1 }}>{s.num}</span>
-                </div>
-                <h3 style={{ fontWeight: 800, fontSize: 19, marginBottom: 10, letterSpacing: "-0.01em" }}>{s.title}</h3>
-                <p style={{ color: "#7777AA", fontSize: 14, lineHeight: 1.7, margin: 0 }}>{s.desc}</p>
+              <div key={i} style={{ padding: "36px 32px", background: "#0C0C0C" }}>
+                <div style={{ color: "#FF0099", fontSize: 12, fontWeight: 600, letterSpacing: "0.06em", marginBottom: 20 }}>{s.num}</div>
+                <h3 style={{ fontWeight: 700, fontSize: 17, marginBottom: 12, letterSpacing: "-0.01em", lineHeight: 1.3 }}>{s.title}</h3>
+                <p style={{ color: "#666", fontSize: 14, lineHeight: 1.7 }}>{s.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* ─── Divider ───────────────────────────── */}
+      <hr className="divider" style={{ maxWidth: 1160, margin: "0 auto" }} />
 
       {/* ─── Recent launches ───────────────────── */}
       <section style={{ padding: "96px 24px" }}>
         <div style={{ maxWidth: 1240, margin: "0 auto" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 48, flexWrap: "wrap", gap: 16 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 40, flexWrap: "wrap", gap: 16 }}>
             <div>
-              <h2 style={{ fontSize: "clamp(32px, 4.5vw, 48px)", fontWeight: 900, letterSpacing: "-0.02em", marginBottom: 8 }}>Recent Launches</h2>
-              <p style={{ color: "#7777AA", fontSize: 16, margin: 0 }}>Auto-buyback enabled on every token</p>
+              <p style={{ color: "#FF0099", fontSize: 12, fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>Recent launches</p>
+              <h2 style={{ fontSize: "clamp(28px, 4vw, 40px)", fontWeight: 800, letterSpacing: "-0.025em" }}>Active tokens</h2>
             </div>
-            <Link href="/tokens" className="btn-outline" style={{ padding: "11px 26px", fontSize: 14 }}>View All →</Link>
+            <Link href="/tokens" className="btn-outline" style={{ padding: "10px 22px", fontSize: 13 }}>View all</Link>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(310px, 1fr))", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12 }}>
             {MOCK_TOKENS.map(t => <TokenCard key={t.address} {...t} />)}
           </div>
         </div>
       </section>
 
       {/* ─── Footer CTA ────────────────────────── */}
-      <section className="section-dark" style={{ padding: "100px 24px", textAlign: "center", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 600, height: 400, borderRadius: "50%", background: "radial-gradient(ellipse, rgba(255,0,153,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
-        <div style={{ maxWidth: 640, margin: "0 auto", position: "relative", zIndex: 1 }}>
-          <div style={{ fontSize: 64, marginBottom: 24, filter: "drop-shadow(0 0 20px rgba(255,0,153,0.6))" }}>🔄</div>
-          <h2 style={{ fontSize: "clamp(38px, 6vw, 64px)", fontWeight: 900, letterSpacing: "-0.03em", marginBottom: 20, lineHeight: 1.1 }}>
-            <span className="gradient-text">Set it. Launch it.</span><br />
-            <span style={{ color: "#FFFFFF" }}>Watch it buy.</span>
+      <hr className="divider" />
+      <section style={{ padding: "96px 24px" }}>
+        <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
+          <p style={{ color: "#FF0099", fontSize: 12, fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 20 }}>Ready to launch?</p>
+          <h2 style={{ fontSize: "clamp(36px, 5.5vw, 60px)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 20 }}>
+            Launch with auto-buyback
           </h2>
-          <p style={{ color: "#7777AA", marginBottom: 40, fontSize: 18, lineHeight: 1.65 }}>
-            Join 1,247 builders using automated buybacks to build real price support — without lifting a finger.
+          <p style={{ color: "#666", marginBottom: 36, fontSize: 16, lineHeight: 1.65 }}>
+            Join 1,247 builders using automated buybacks to create consistent buy pressure — without lifting a finger.
           </p>
-          <Link href="/launch" className="btn-primary" style={{ padding: "18px 56px", fontSize: 20, borderRadius: 16, display: "inline-flex" }}>
-            🚀 Launch Now
+          <Link href="/launch" className="btn-primary" style={{ padding: "15px 44px", fontSize: 16 }}>
+            Launch a Token
           </Link>
         </div>
       </section>

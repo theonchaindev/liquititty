@@ -36,31 +36,30 @@ export default async function TokensPage() {
   return (
     <div style={{ padding: "72px 24px", minHeight: "100vh" }}>
       <div style={{ maxWidth: 1240, margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{ marginBottom: 52 }}>
-          <h1 style={{ fontSize: "clamp(36px, 6vw, 60px)", fontWeight: 900, letterSpacing: "-0.03em", marginBottom: 12 }}>
-            Launched Tokens
-          </h1>
-          <p style={{ color: "#7777AA", fontSize: 17 }}>
-            {tokens.length} tokens with automatic buybacks on pump.fun × PumpSwap
-          </p>
+        <div style={{ marginBottom: 48 }}>
+          <p style={{ color: "#FF0099", fontSize: 12, fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16 }}>All tokens</p>
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+            <h1 style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 800, letterSpacing: "-0.025em" }}>
+              Launched tokens
+            </h1>
+            <span style={{ color: "#555", fontSize: 14 }}>{tokens.length} tokens with auto-buyback</span>
+          </div>
         </div>
 
         {/* Filter bar */}
-        <div style={{ display: "flex", gap: 10, marginBottom: 40, flexWrap: "wrap" }}>
-          {["Newest", "Buyback Vol", "Fees Claimed", "Highest Buyback %"].map((f, i) => (
+        <div style={{ display: "flex", gap: 8, marginBottom: 36 }}>
+          {["Newest", "Buyback Vol", "Fees Claimed", "Highest %"].map((f, i) => (
             <button
               key={f}
               style={{
-                padding: "9px 22px",
-                borderRadius: 100,
-                border: `1px solid ${i === 0 ? "rgba(255,0,153,0.55)" : "rgba(255,255,255,0.08)"}`,
-                background: i === 0 ? "rgba(255,0,153,0.12)" : "rgba(255,255,255,0.03)",
-                color: i === 0 ? "#FF44CC" : "#7777AA",
+                padding: "8px 18px",
+                borderRadius: 6,
+                border: `1px solid ${i === 0 ? "rgba(255,0,153,0.3)" : "rgba(255,255,255,0.08)"}`,
+                background: i === 0 ? "rgba(255,0,153,0.08)" : "transparent",
+                color: i === 0 ? "#FF0099" : "#666",
                 fontSize: 13,
                 cursor: "pointer",
-                fontWeight: i === 0 ? 700 : 400,
-                transition: "all 0.2s",
+                fontWeight: i === 0 ? 500 : 400,
               }}
             >
               {f}
@@ -69,7 +68,7 @@ export default async function TokensPage() {
         </div>
 
         {/* Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(310px, 1fr))", gap: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12 }}>
           {tokens.map((t: any) => (
             <TokenCard
               key={t.id || t.address}
@@ -85,11 +84,10 @@ export default async function TokensPage() {
           ))}
         </div>
 
-        {/* CTA */}
-        <div style={{ textAlign: "center", marginTop: 96 }}>
-          <p style={{ color: "#7777AA", marginBottom: 20, fontSize: 16 }}>Want auto-buybacks on your token?</p>
-          <Link href="/launch" className="btn-primary" style={{ padding: "15px 40px", fontSize: 17, borderRadius: 13 }}>
-            🚀 Launch Your Token
+        <div style={{ textAlign: "center", marginTop: 80 }}>
+          <p style={{ color: "#555", marginBottom: 20, fontSize: 15 }}>Want auto-buybacks on your token?</p>
+          <Link href="/launch" className="btn-primary" style={{ padding: "13px 36px", fontSize: 15 }}>
+            Launch a Token
           </Link>
         </div>
       </div>

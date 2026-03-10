@@ -28,64 +28,55 @@ function timeAgo(dateStr: string): string {
 
 export default function TokenCard({ name, symbol, imageUrl, lpPercentage, lpValue, totalRaised, launchedAt, address }: TokenCardProps) {
   return (
-    <div className="card" style={{ padding: 22 }}>
+    <div className="card" style={{ padding: 20 }}>
       {/* Header */}
-      <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
         <div style={{
-          width: 52,
-          height: 52,
-          borderRadius: 14,
-          background: imageUrl ? undefined : "linear-gradient(135deg, #FF0099, #B400FF)",
+          width: 44,
+          height: 44,
+          borderRadius: 10,
+          background: imageUrl ? undefined : "#1E1E1E",
           overflow: "hidden",
           flexShrink: 0,
-          border: "1px solid rgba(255,0,153,0.3)",
-          boxShadow: "0 0 16px rgba(255,0,153,0.2)",
+          border: "1px solid rgba(255,255,255,0.07)",
         }}>
           {imageUrl && <img src={imageUrl} alt={name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <span style={{ fontWeight: 800, fontSize: 17, color: "#FFFFFF", display: "block", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", letterSpacing: "-0.01em" }}>{name}</span>
-          <span style={{ color: "#7777AA", fontSize: 13, fontWeight: 500 }}>${symbol}</span>
+          <span style={{ fontWeight: 700, fontSize: 15, color: "#FFFFFF", display: "block", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{name}</span>
+          <span style={{ color: "#555", fontSize: 12 }}>${symbol}</span>
         </div>
         <div style={{
-          background: "linear-gradient(135deg, rgba(255,0,153,0.18), rgba(180,0,255,0.12))",
-          border: "1px solid rgba(255,0,153,0.4)",
-          borderRadius: 8,
-          padding: "4px 11px",
-          fontSize: 12,
-          fontWeight: 700,
-          color: "#FF44CC",
+          background: "rgba(255, 0, 153, 0.08)",
+          border: "1px solid rgba(255, 0, 153, 0.18)",
+          borderRadius: 6,
+          padding: "3px 9px",
+          fontSize: 11,
+          fontWeight: 600,
+          color: "#FF0099",
           flexShrink: 0,
-          boxShadow: "0 0 10px rgba(255,0,153,0.12)",
         }}>
-          {lpPercentage}% buyback
+          {lpPercentage}%
         </div>
       </div>
 
       {/* Stats */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 18 }}>
-        <div style={{ background: "rgba(255,0,153,0.06)", border: "1px solid rgba(255,0,153,0.12)", borderRadius: 12, padding: "12px 14px" }}>
-          <div style={{ color: "#7777AA", fontSize: 11, marginBottom: 5, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.04em" }}>Buyback Vol</div>
-          <div style={{
-            fontWeight: 800,
-            fontSize: 17,
-            background: "linear-gradient(90deg, #FF0099, #CC00FF)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}>{formatNumber(lpValue)}</div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 20 }}>
+        <div style={{ background: "#111", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ color: "#444", fontSize: 10, marginBottom: 4, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em" }}>Buyback Vol</div>
+          <div style={{ fontWeight: 700, fontSize: 16, color: "#FFFFFF" }}>{formatNumber(lpValue)}</div>
         </div>
-        <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, padding: "12px 14px" }}>
-          <div style={{ color: "#7777AA", fontSize: 11, marginBottom: 5, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.04em" }}>Fees Claimed</div>
-          <div style={{ color: "#FFFFFF", fontWeight: 800, fontSize: 17 }}>{formatNumber(totalRaised)}</div>
+        <div style={{ background: "#111", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 8, padding: "10px 12px" }}>
+          <div style={{ color: "#444", fontSize: 10, marginBottom: 4, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.06em" }}>Fees Claimed</div>
+          <div style={{ fontWeight: 700, fontSize: 16, color: "#FFFFFF" }}>{formatNumber(totalRaised)}</div>
         </div>
       </div>
 
       {/* Footer */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ color: "#5555AA", fontSize: 12 }}>{timeAgo(launchedAt)}</span>
-        <Link href={`/token/${address}`} className="btn-outline" style={{ padding: "7px 18px", fontSize: 13 }}>
-          View →
+        <span style={{ color: "#444", fontSize: 12 }}>{timeAgo(launchedAt)}</span>
+        <Link href={`/token/${address}`} className="btn-outline" style={{ padding: "6px 16px", fontSize: 12 }}>
+          View
         </Link>
       </div>
     </div>
